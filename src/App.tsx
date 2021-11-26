@@ -6,7 +6,7 @@ import { PostSignIn } from './PostSignIn';
 //import { TabPanel } from '@mui/lab';
 
 export const App = () => {
-  const [signedIn, LogIn] = React.useState(false);
+  const [signedIn, LogIn] = React.useState(true);
   const handleLogIn = (event) => {
     event.preventDefault();
     LogIn(!signedIn);
@@ -16,7 +16,7 @@ export const App = () => {
     <AppBar position="static">
       <Toolbar variant="dense">
         <Typography variant="h6" component="h1"  sx={{ flexGrow: 1 }}>
-          Not So Auto Trader
+          Not So AutoTrader
         </Typography>
         <Button color="inherit" onClick = {handleLogIn}>Login</Button>
       </Toolbar>
