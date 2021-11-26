@@ -5,7 +5,10 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack serve --config webpack/webpack.config.js --open"
+    "start": "node server/index.ts",
+    "devStart": "nodemon server/index.js",
+    "devBuild": "webpack --watch --config webpack/webpack.config.js",
+    "build": "webpack --config webpack/webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +32,9 @@
     "nodemon": "^2.0.15"
   },
   "dependencies": {
+    "@emotion/react": "^11.7.0",
+    "@emotion/styled": "^11.6.0",
+    "@mui/material": "^5.2.1",
     "@types/jest": "^27.0.3",
     "@types/node": "^16.11.10",
     "@types/react": "^17.0.36",
