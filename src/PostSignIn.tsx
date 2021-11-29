@@ -4,7 +4,7 @@ import { Panel1 }  from './Panel1';
 import { Panel2 } from './Panel2';
 
 export const PostSignIn = () => {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(1);
   const handleChange = (event, newValue) => {
     event.preventDefault();
     setValue(newValue);
