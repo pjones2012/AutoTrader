@@ -2,19 +2,18 @@ import React from 'react';
 import axios from 'axios';
 import { Card, Grid, Button } from '@mui/material';
 
-export const Panel2 = () => {
-  const [watchList, setWatchList] = React.useState(["BTC"]);
+export const Panel2 = (props) => {
   const [selected, setSelected] = React.useState(0);
-
+  const [storyList, setList] = React.useState([]);
   const handleCardClick = (newValue, event) => {
     event.preventDefault();
     setSelected(newValue);
   };
   const handleRemove = (removeValue, event) => {
     event.preventDefault();
-    var newList = watchList.slice();
+    var newList = props.watchList.slice();
     newList.splice(removeValue,1);
-    setWatchList(newList);
+    props.setWatchList(newList);
   };
   React.useEffect(()=>{
     //axios('https://api.coinbase.com/v2/currencies')
@@ -23,11 +22,12 @@ export const Panel2 = () => {
     //}).catch((err)=>{
       //console.log(err);
     //});
-    setWatchList(["BTC", "ETH", "ETH2"]);
+
+    setList(["Hello", 123]);
   }, [1])
 
   React.useEffect(()=>{
-    axios(`https://api.exchange.coinbase.com/products/${watchList[selected]}-USD/stats`)
+    axios(`https://api.exchange.coinbase.com/products/${props.watchList[selected]}-USD/stats`)
     .then((res)=>{
       console.log(res.data);
     }).catch((err)=>{
@@ -37,22 +37,27 @@ export const Panel2 = () => {
 
   return (
     <React.Fragment>
-      <div> This should be a page The currencies that are on the account holders watch list. There should be a button to remove from the watch list</div>
+      <div> This should be a page about The currencies that are on the account holders watch list. There should be a button to remove from the watch list with updates from the last visit</div>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid item xs={6}>
           <h3 align="center" >Watch List</h3>
-          {watchList.map((item, i)=>{
+          {props.watchList.map((item, i)=>{
             return (<Card key={i} onClick={(e)=>handleCardClick(i,e)}>{item}</Card>)
           })}
-
         </Grid>
         <Grid item xs={6}>
         <h3 align="center">Recent Updates</h3>
-          <Card>Updated information about {watchList[selected]}
+          <Card>Updated information about {props.watchList[selected]}
             <Button color="inherit" onClick={(e)=>handleRemove(selected,e)}>Remove</Button>
           </Card>
         </Grid>
-
+        <Grid item xs={12}>
+          <Card>Most increase in 24H & {storyList}</Card>
+          <Card>Most increase in 1W</Card>
+          <Card>Newest</Card>
+          <Card>Announcements</Card>
+          <Card>Buy Low! </Card>
+        </Grid>
       </Grid>
     </React.Fragment>);
 }
