@@ -1,23 +1,28 @@
 import React from 'react';
+import axios from 'axios';
 import { Box, Tabs, Tab } from '@mui/material';
 import { Panel1 }  from './Panel1';
 import { Panel2 } from './Panel2';
 import { Panel3 } from './Panel3';
 
 export const PostSignIn = () => {
+  const [cryptoList, setCryptoList] = React.useState(["BTC"]);
   const [watchList, setWatchList] = React.useState(["BTC"]);
   const [value, setValue] = React.useState(1);
-  const handleChange = (event, newValue) => {
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     event.preventDefault();
     setValue(newValue);
   };
+
   React.useEffect(()=>{
-    //axios('https://api.coinbase.com/v2/currencies')
-    //.then((res)=>{
-      //console.log(res.data);
-    //}).catch((err)=>{
-      //console.log(err);
-    //});
+    axios(`https://api.polygon.io/v3/reference/tickers?market=crypto&active=true&sort=ticker&order=asc&limit=10&apiKey=`)
+    .then((res)=>{
+      console.log(res.data);
+      setCryptoList(res.data.results);
+    }).catch((err)=>{
+      console.log(err);
+    });
 
     setWatchList(["BTC", "ETH", "ETH2"]);
   }, [1])
@@ -35,7 +40,7 @@ export const PostSignIn = () => {
           <Tab label="Investigate" />
         </Tabs>
       </Box>
-      {value === 0 && <Panel1 watchList={watchList} setWatchList={setWatchList}/>}
+      {value === 0 && <Panel1 cryptoList={cryptoList} watchList={watchList} setWatchList={setWatchList} changePanel={setValue}/>}
       {value === 1 && <Panel2 watchList={watchList} setWatchList={setWatchList}/>}
       {value === 2 && <Panel3 />}
     </React.Fragment>

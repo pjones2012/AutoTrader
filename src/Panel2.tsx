@@ -2,14 +2,19 @@ import React from 'react';
 import axios from 'axios';
 import { Card, Grid, Button } from '@mui/material';
 
-export const Panel2 = (props) => {
+interface Panel2Props {
+  children?: React.ReactNode;
+  watchList: string[];
+  setWatchList: any;
+}
+export const Panel2 = (props: Panel2Props) => {
   const [selected, setSelected] = React.useState(0);
   const [storyList, setList] = React.useState([]);
-  const handleCardClick = (newValue, event) => {
+  const handleCardClick = (newValue: number, event: React.SyntheticEvent) => {
     event.preventDefault();
     setSelected(newValue);
   };
-  const handleRemove = (removeValue, event) => {
+  const handleRemove = (removeValue: number, event: React.SyntheticEvent) => {
     event.preventDefault();
     var newList = props.watchList.slice();
     newList.splice(removeValue,1);
@@ -23,7 +28,7 @@ export const Panel2 = (props) => {
       //console.log(err);
     //});
 
-    setList(["Hello", 123]);
+
   }, [1])
 
   React.useEffect(()=>{
@@ -52,7 +57,7 @@ export const Panel2 = (props) => {
           </Card>
         </Grid>
         <Grid item xs={12}>
-          <Card>Most increase in 24H & {storyList}</Card>
+          <Card>Most increase in 24H </Card>
           <Card>Most increase in 1W</Card>
           <Card>Newest</Card>
           <Card>Announcements</Card>

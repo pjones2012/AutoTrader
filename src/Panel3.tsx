@@ -2,7 +2,12 @@ import React from 'react';
 import axios from 'axios';
 import { Card, Grid, Button } from '@mui/material';
 
-export const Panel3 = () => {
+interface Panel3Props {
+  children?: React.ReactNode;
+  watchList: string[];
+  setWatchList: any;
+}
+export const Panel3 = (props: Panel3Props) => {
   //const [watchList, setWatchList] = React.useState(["BTC"]);
   //const [selected, setSelected] = React.useState(0);
 
