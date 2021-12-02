@@ -8,6 +8,7 @@ interface Panel1Props {
   watchList: string[];
   setWatchList: any;
   changePanel: any;
+  myName: string;
 }
 
 export const Panel1 = (props: Panel1Props ) => {
@@ -22,7 +23,12 @@ export const Panel1 = (props: Panel1Props ) => {
     event.preventDefault();
     var newList = props.watchList.slice();
     newList.push(newValue);
-    props.setWatchList(newList);
+    axios.post(`http://localhost:3000/watchItem`, { list: newList.join(','), name: props.myName })
+    .then((res)=>{
+      props.setWatchList(newList);
+    }).catch((err)=>{
+      console.log(err);
+    });
   };
   React.useEffect(()=>{
     Promise.allSettled(props.cryptoList.map((item )=>axios(`https://api.exchange.coinbase.com/products/${item.base_currency_symbol}-USD/stats`)))
@@ -39,7 +45,7 @@ export const Panel1 = (props: Panel1Props ) => {
   }, [1])
   return (
   <React.Fragment >
-    <div> A page exploring cryptos. And there should be a button to add this to the watchlist</div>
+    <div> A page exploring cryptos. </div>
     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
       <Grid item xs={12}>
         {cryptoInfoList.map((item, i)=>{

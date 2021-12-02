@@ -6,6 +6,7 @@ interface Panel2Props {
   children?: React.ReactNode;
   watchList: string[];
   setWatchList: any;
+  myName: string;
 }
 export const Panel2 = (props: Panel2Props) => {
   const [selected, setSelected] = React.useState(0);
@@ -18,8 +19,15 @@ export const Panel2 = (props: Panel2Props) => {
     event.preventDefault();
     var newList = props.watchList.slice();
     newList.splice(removeValue,1);
-    props.setWatchList(newList);
+
+    axios.post(`http://localhost:3000/watchItem`, { list: newList.join(','), name: props.myName })
+    .then((res)=>{
+      props.setWatchList(newList);
+    }).catch((err)=>{
+      console.log(err);
+    });
   };
+
   React.useEffect(()=>{
     //axios('https://api.coinbase.com/v2/currencies')
     //.then((res)=>{
@@ -42,7 +50,7 @@ export const Panel2 = (props: Panel2Props) => {
 
   return (
     <React.Fragment>
-      <div> This should be a page about The currencies that are on the account holders watch list. There should be a button to remove from the watch list with updates from the last visit</div>
+      <div> This should be a page about The currencies that are on the account holders watch list. There should be updates from the last visit</div>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid item xs={6}>
           <h3 align="center" >Watch List</h3>

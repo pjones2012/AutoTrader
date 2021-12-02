@@ -5,9 +5,9 @@ import { Panel1 }  from './Panel1';
 import { Panel2 } from './Panel2';
 import { Panel3 } from './Panel3';
 
-export const PostSignIn = () => {
+export const PostSignIn = (props) => {
   const [cryptoList, setCryptoList] = React.useState(["BTC"]);
-  const [watchList, setWatchList] = React.useState(["BTC"]);
+
   const [value, setValue] = React.useState(1);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -24,7 +24,7 @@ export const PostSignIn = () => {
       console.log(err);
     });
 
-    setWatchList(["BTC", "ETH", "ETH2"]);
+
   }, [1])
   return (
     <React.Fragment >
@@ -40,8 +40,8 @@ export const PostSignIn = () => {
           <Tab label="Investigate" />
         </Tabs>
       </Box>
-      {value === 0 && <Panel1 cryptoList={cryptoList} watchList={watchList} setWatchList={setWatchList} changePanel={setValue}/>}
-      {value === 1 && <Panel2 watchList={watchList} setWatchList={setWatchList}/>}
+      {value === 0 && <Panel1 myName={props.myName} cryptoList={cryptoList} watchList={props.watchList} setWatchList={props.setWatchList} changePanel={setValue}/>}
+      {value === 1 && <Panel2 myName={props.myName} watchList={props.watchList} setWatchList={props.setWatchList}/>}
       {value === 2 && <Panel3 />}
     </React.Fragment>
   );
