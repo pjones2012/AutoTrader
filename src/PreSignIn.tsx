@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { Modal, Box, Typography, Button, InputLabel, Input } from '@mui/material';
 import { spacing } from '@mui/system';
 
@@ -17,9 +18,32 @@ interface PreSignInProps {
   children?: React.ReactNode;
   modalState: boolean;
   handleClose: any;
+  login: any;
+  setMyName: any;
+  setWatchList: any;
 }
 export const PreSignIn = (props: PreSignInProps) => {
+  const handleSubmit = ( username: string) => {
+    console.log('is this you?',username);
+    if(username !== ''){
+      axios(`http://localhost:3000/Login`, { params: { name: username } })
+      .then((res)=>{
+        console.log(res);
+        if (res.data.rows.length > 0) {
+          props.login(true);
+          props.setMyName(username);
+          var list = res.data.rows[0].watchlist===null?[]:res.data.rows[0].watchlist.split(',');
+          props.setWatchList(list);
+          props.handleClose();
+        } else {
+          throw 'Cannot Find User';
+        }
 
+      }).catch((err)=>{
+        console.log(err);
+      });
+    }
+  }
   return (
   <div style={{margin:"30px"}} align="center" >
     <div > <img src="./Opener.jpeg" alt="Cryptocurrency Image"  width="50%" height="25%" ></img></div>
@@ -36,7 +60,7 @@ export const PreSignIn = (props: PreSignInProps) => {
           </Typography>
           <InputLabel htmlFor="username" sx={{ mt: 2 }}>Name</InputLabel>
           <Input id="username"   sx={{ mt: 2 }} />
-          <Button onClick={()=>props.handleClose( document.getElementById("username").value)}>Close</Button>
+          <Button onClick={()=>handleSubmit( document.getElementById("username").value)}>Submit</Button>
         </Box>
       </Modal>
   </div>

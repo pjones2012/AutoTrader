@@ -1,62 +1,79 @@
 import React from 'react';
+import { Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,} from 'chart.js';
+import { Line }  from 'react-chartjs-2';
 import axios from 'axios';
 import { Card, Grid, Button } from '@mui/material';
 
 interface Panel3Props {
   children?: React.ReactNode;
-  watchList: string[];
-  setWatchList: any;
+  cryptoDetail: string;
 }
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
 export const Panel3 = (props: Panel3Props) => {
-  //const [watchList, setWatchList] = React.useState(["BTC"]);
-  //const [selected, setSelected] = React.useState(0);
 
-  //const handleCardClick = (newValue, event) => {
-    //event.preventDefault();
-    //setSelected(newValue);
-  //};
-  //const handleRemove = (removeValue, event) => {
-    //event.preventDefault();
-    //var newList = watchList.slice();
-    //newList.splice(removeValue,1);
-    //setWatchList(newList);
-  //};
-  //React.useEffect(()=>{
-    //axios('https://api.coinbase.com/v2/currencies')
+  React.useEffect(()=>{
+    //axios(`https://api.polygon.io/v3/reference/tickers?market=crypto&active=true&sort=ticker&order=asc&limit=10&apiKey=nItHIw3cXQwOIt0aaLx6VFa1S0pluHQU`)
     //.then((res)=>{
       //console.log(res.data);
+      //setCryptoList(res.data.results);
     //}).catch((err)=>{
       //console.log(err);
     //});
-    //setWatchList(["BTC", "ETH", "ETH2"]);
-  //}, [1])
 
-  //React.useEffect(()=>{
-    //axios(`https://api.exchange.coinbase.com/products/${watchList[selected]}-USD/stats`)
-    //.then((res)=>{
-      //console.log(res.data);
-    //}).catch((err)=>{
-      //console.log(err);
-    //});
-  //}, [selected])
 
+  }, [1])
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top' as const,
+      },
+      title: {
+        display: true,
+        text: 'Chart.js Line Chart', //Add coinName here
+      },
+    },
+  };
+  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']; //labels might need to be dynamic based on how long coin has been out or time frame
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: 'Dataset 1',//Add coin information here
+        data: [1,2,3,4,5,6,7,8,9,10],
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      },
+      //{
+        //label: 'Dataset 2',
+        //data: labels.map(() => datatype.number({ min: -1000, max: 1000 })),
+        //borderColor: 'rgb(53, 162, 235)',
+        //backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      //},
+    ],
+  };
   return (
-    //<React.Fragment>
-      <div> Detail about current stock being looked at eg: price, market cap , change % and price chart. There should be a Buy/Sell button that will take you to coinbase or some other trader.There should be a Add to watchList button.</div>
-      //<Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        //<Grid item xs={6}>
-          //<h3 align="center" >Watch List</h3>
-          //{watchList.map((item, i)=>{
-            //return (<Card key={i} onClick={(e)=>handleCardClick(i,e)}>{item}</Card>)
-          //})}
-        //</Grid>
-        //<Grid item xs={6}>
-        //<h3 align="center">Recent Updates</h3>
-          //<Card>Updated information about {watchList[selected]}
-            //<Button color="inherit" onClick={(e)=>handleRemove(selected,e)}>Remove</Button>
-         // </Card>
-        //</Grid>
-      //</Grid>
-    //</React.Fragment>
+    <React.Fragment>
+      <div>Detail about current stock being looked at eg: price, market cap , change % and price chart. There should be a Buy/Sell button that will take you to coinbase or some other trader.There should be a Add to watchList button.</div>
+      <Line options={options} data={data}></Line>
+    </React.Fragment>
     );
 }

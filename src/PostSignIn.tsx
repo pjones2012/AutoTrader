@@ -6,9 +6,9 @@ import { Panel2 } from './Panel2';
 import { Panel3 } from './Panel3';
 
 export const PostSignIn = (props) => {
-  const [cryptoList, setCryptoList] = React.useState(["BTC"]);
-
-  const [value, setValue] = React.useState(1);
+  const [cryptoList, setCryptoList] = React.useState([{base_currency: "BTC"}]);
+  const [cryptoDetail, setCryptoDetail] = React.useState("BTC");
+  const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     event.preventDefault();
@@ -16,10 +16,10 @@ export const PostSignIn = (props) => {
   };
 
   React.useEffect(()=>{
-    axios(`https://api.polygon.io/v3/reference/tickers?market=crypto&active=true&sort=ticker&order=asc&limit=10&apiKey=`)
+    axios(`https://api.exchange.coinbase.com/products`)
     .then((res)=>{
       console.log(res.data);
-      setCryptoList(res.data.results);
+      setCryptoList(res.data);
     }).catch((err)=>{
       console.log(err);
     });
@@ -40,9 +40,9 @@ export const PostSignIn = (props) => {
           <Tab label="Investigate" />
         </Tabs>
       </Box>
-      {value === 0 && <Panel1 myName={props.myName} cryptoList={cryptoList} watchList={props.watchList} setWatchList={props.setWatchList} changePanel={setValue}/>}
+      {value === 0 && <Panel1 myName={props.myName} cryptoList={cryptoList} watchList={props.watchList} setWatchList={props.setWatchList} changePanel={setValue} changeCryptoDetail={setCryptoDetail}/>}
       {value === 1 && <Panel2 myName={props.myName} watchList={props.watchList} setWatchList={props.setWatchList}/>}
-      {value === 2 && <Panel3 />}
+      {value === 2 && <Panel3 current={cryptoDetail} />}
     </React.Fragment>
   );
 }

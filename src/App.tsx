@@ -9,24 +9,9 @@ export const App = () => {
   const [myName, setMyName] = React.useState('');
   const [open, setOpen] = React.useState(false);
   const [watchList, setWatchList] = React.useState(["BTC"]);
-  const handleOpen = () => setOpen(true);
-  const handleClose = ( username: string) => {
-    console.log('is this you?',username);
-    if(username !== ''){
-      axios(`http://localhost:3000/Login`, { params: { name: username } })
-      .then((res)=>{
-        console.log(res);
-        LogIn(!signedIn);
-        setMyName(username);
-        var list = res.data.rows[0].watchlist===null?[]:res.data.rows[0].watchlist.split(',');
-        setWatchList(list);
-      }).catch((err)=>{
-        console.log(err);
-      });
-    }
 
-    setOpen(false);
-  }
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const handleLogIn = (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -42,7 +27,7 @@ export const App = () => {
         <Button color="inherit" onClick={signedIn?handleLogIn:handleOpen}>{signedIn?"Log off":"Log In"}</Button>
       </Toolbar>
     </AppBar>
-    {!signedIn && <PreSignIn modalState={open} handleClose={handleClose}/>}
+    {!signedIn && <PreSignIn setMyName={setMyName} modalState={open} login={LogIn} handleClose={handleClose} setWatchList={setWatchList}/>}
     {signedIn && <PostSignIn myName={myName} watchList={watchList} setWatchList={setWatchList}/>}
   </React.Fragment> );
 }
