@@ -24,7 +24,7 @@ The application will be accessible on http://localhost:3000/
 3) Specific Architectural Pattern -
   TBD
 4) BackEnd Service with CRUD operations -
-  CREATE TBD
+  Sign Up with a Username in the Database implements a CREATE operation in postgress Database.
   LogIn with a Username in the Database implements a READ operation of postgress Database.
   "Add to Watchlist" and "Remove" buttons implements an UPDATE operation of postgress Database.
   DELETE TBD
@@ -37,12 +37,11 @@ The application will be accessible on http://localhost:3000/
 
 # TODO-
 1) fix typescript
-2) implement Sign in to CREATE
-3) implement Delete Account to DELETE
-4) clarify architectural pattern
-5) reusable component
-6) complete a lighthouse and fix accessibility issues
-7) improve watchlist storage in db
+2) implement Delete Account to DELETE
+3) clarify architectural pattern
+4) reusable component
+5) complete a lighthouse and fix accessibility issues
+6) improve watchlist storage in db
 
 # Application structure
 TBD

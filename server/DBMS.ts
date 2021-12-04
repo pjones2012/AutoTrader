@@ -32,7 +32,20 @@ var findOne =(name, cb)=>{
   })
 }
 
+var createOne=( name, cb)=>{
+  console.log(name);
+  client.query(`INSERT INTO users (name) VALUES ($1)`, [name],(err, res) => {
+    if (res){
+      return cb(null,res);
+    } else if (err){
+      return cb(err, null);
+    }
+
+  })
+}
+
 module.exports={
   findOne,
   updateWatchList,
+  createOne,
 }

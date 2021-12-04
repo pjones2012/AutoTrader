@@ -24,7 +24,6 @@ interface PreSignInProps {
 }
 export const PreSignIn = (props: PreSignInProps) => {
   const handleSubmit = ( username: string) => {
-    console.log('is this you?',username);
     if(username !== ''){
       axios(`http://localhost:3000/Login`, { params: { name: username } })
       .then((res)=>{
@@ -38,6 +37,27 @@ export const PreSignIn = (props: PreSignInProps) => {
         } else {
           throw 'Cannot Find User';
         }
+
+      }).catch((err)=>{
+        console.log(err);
+      });
+    }
+  }
+  const handleSignUp = ( username: string) => {
+    console.log('is this you?',username);
+    if(username !== ''){
+      axios.post(`http://localhost:3000/SignUp`,  { name: username })
+      .then((res)=>{
+        console.log(res);
+        //if (res.data.rows.length > 0) {
+          //props.login(true);
+          //props.setMyName(username);
+          //var list = res.data.rows[0].watchlist===null?[]:res.data.rows[0].watchlist.split(',');
+          //props.setWatchList(list);
+          props.handleClose();
+        //} else {
+          //throw 'Cannot Find User';
+        //}
 
       }).catch((err)=>{
         console.log(err);
@@ -60,7 +80,8 @@ export const PreSignIn = (props: PreSignInProps) => {
           </Typography>
           <InputLabel htmlFor="username" sx={{ mt: 2 }}>Name</InputLabel>
           <Input id="username"   sx={{ mt: 2 }} />
-          <Button onClick={()=>handleSubmit( document.getElementById("username").value)}>Submit</Button>
+          <Button onClick={()=>handleSubmit( document.getElementById("username").value)}>Log In</Button>
+          <Button onClick={()=>handleSignUp( document.getElementById("username").value)}>Sign Up</Button>
         </Box>
       </Modal>
   </div>

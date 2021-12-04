@@ -24,6 +24,20 @@ app.get('/Login', function (req, res) {
   })
 });
 
+app.post('/SignUp', function (req, res) {
+  //console.log(req.query);
+  db.createOne(req.body.name, (err, result)=>{
+    if(err){
+      console.log(err);
+      res.status(404);
+      res.send(err);
+    } else {
+      console.log(result);
+      res.sendStatus(201);
+    }
+  })
+});
+
 app.post('/watchItem', function (req, res) {
   console.log(req.body.list);
   db.updateWatchList(req.body.list,req.body.name, (err, result)=>{
