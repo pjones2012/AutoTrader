@@ -35,16 +35,30 @@ The application will be accessible on http://localhost:3000/
 7) A reusable component that I created and used -
   TBD
 
-# Application structure
-TBD
-
-# API Payload
-TBD 
-
 # TODO-
-1) fix graph to show information
+1) fix typescript
 2) implement Sign in to CREATE
 3) implement Delete Account to DELETE
 4) clarify architectural pattern
 5) reusable component
 6) complete a lighthouse and fix accessibility issues
+7) improve watchlist storage in db
+
+# Application structure
+TBD
+
+# API Payload
+TBD
+# Challenges
+1) First time using type script
+2) vetting APIs - What APIs have what information available? How accessible is it? rate limitations? costs involved? How clear is the documentation on using the API?
+  - Getting familiar with Crypto Currency terms and what they mean.
+  - Coinbase documentation harder to access/find/understand. (timestamp? myString := DateTimeToStr(UnixToDateTime(Epoch));)
+  - Polygon seemed easy to understand. However nice 'snapshots' which were available at a cost, and also had strong rate limitations
+  - Binance not available in Texas.
+
+3) Developing scope and Prioritizing tasks! (3 interations = three clicks --> or 3 tabs. Did I take on too much?)
+4) First React update error due to component unmount issue.
+
+
+

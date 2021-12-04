@@ -58,7 +58,9 @@ export const Panel1 = (props: Panel1Props ) => {
     }).catch((err)=>{
       console.log('help', err);
     });
+    return function cleanup() {}; //Did this return statment actually help?
   }, [props.cryptoList])
+
   return (
   <React.Fragment >
     <div> A page exploring cryptos. </div>

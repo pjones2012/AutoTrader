@@ -8,7 +8,7 @@ import { Panel3 } from './Panel3';
 export const PostSignIn = (props) => {
   const [cryptoList, setCryptoList] = React.useState([{base_currency: "BTC"}]);
   const [cryptoDetail, setCryptoDetail] = React.useState("BTC");
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(2);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     event.preventDefault();
@@ -18,7 +18,7 @@ export const PostSignIn = (props) => {
   React.useEffect(()=>{
     axios(`https://api.exchange.coinbase.com/products`)
     .then((res)=>{
-      console.log(res.data);
+      //console.log(res.data);
       setCryptoList(res.data);
     }).catch((err)=>{
       console.log(err);
