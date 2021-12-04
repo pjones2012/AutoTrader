@@ -22,7 +22,7 @@ export const App = () => {
     <AppBar position="static">
       <Toolbar variant="dense">
         <Typography variant="h6" component="h1"  sx={{ flexGrow: 1 }}>
-          Not So AutoTrader
+          CryptoClass
         </Typography>
         <Button color="inherit" onClick={signedIn?handleLogIn:handleOpen}>{signedIn?"Log off":"Log In"}</Button>
       </Toolbar>
