@@ -18,8 +18,7 @@ export const Panel1 = (props: Panel1Props ) => {
   const [cryptoOpeningList, setCryptoOpeningList] = React.useState([{status:"BTC", value: {data: {open: 0}}}]);
   const [index, setIndex] = React.useState(0);
 
-  const handleCardClick = (crypto: string, event: React.SyntheticEvent) => {
-    event.preventDefault();
+  const handleCardClick = (crypto: string) => {
     props.changePanel(2);
     props.changeCryptoDetail(crypto);
   };
@@ -85,7 +84,7 @@ export const Panel1 = (props: Panel1Props ) => {
               <CryptoInfoCard
                 key={i}
                 currency={item.base_currency}
-                handleCardClick={(e)=>handleCardClick(item.base_currency,e)}
+                handleCardClick={()=>handleCardClick(item.base_currency)}
                 handleButton={()=>handleAdd(item.base_currency)}
                 buttonName="Add to WatchList"
                 price={(cryptoPriceList[i]||cryptoPriceList[0]).status === "fulfilled"? (cryptoPriceList[i]||cryptoPriceList[0]).value.data.data.amount:0}
