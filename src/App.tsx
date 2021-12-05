@@ -5,8 +5,8 @@ import { PreSignIn } from './PreSignIn';
 import { PostSignIn } from './PostSignIn';
 
 export const App = () => {
-  const [signedIn, LogIn] = React.useState(true);
-  const [myName, setMyName] = React.useState('Portia');
+  const [signedIn, LogIn] = React.useState(false);
+  const [myName, setMyName] = React.useState('ortia');
   const [open, setOpen] = React.useState(false);
   const [watchList, setWatchList] = React.useState(["BTC"]);
 

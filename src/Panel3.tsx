@@ -43,7 +43,7 @@ export const Panel3 = (props: Panel3Props) => {
     labels: [] ,
     datasets: [
       {
-        label: 'Dataset 1',//Add coin information here
+        label: 'Dataset 1',
         data: [],
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',

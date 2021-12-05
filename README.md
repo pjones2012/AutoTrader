@@ -35,17 +35,18 @@ The application will be accessible on http://localhost:3000/
 6) Use At least 5 Material UI components -
   At the time of counting used a total of 12 UI Components from Material UI including AppBar, Button, Modal, Tabs, and Card.
 7) A reusable component that I created and used -
-  TBD
-
-# TODO-
-1) reusable component
-2) complete a lighthouse and fix accessibility issues
+  Created re-useable component CryptoInfoCard used in Panel 1 and Panel 2.
 
 # Application structure
-TBD
+           App
+         /     \
+PreSignIn      Post SignIn
+            /      |      \
+        Panel 1   Panel 2    Panel 3 (Investigate)
+(Explore Crypto) (Your WatchList)
 
 # API Payload
-TBD
+The API endpoints with the highest payload are the Coinbase Spot price and product stat end points which will each be requested 15 times (together 30 total) on Log in to load the Explor Crypto tab
 
 # Challenges
 1) First time using type script
@@ -56,3 +57,5 @@ TBD
   - Binance not available in Texas.
 3) Developing scope and Prioritizing tasks! (3 interations = three clicks --> or 3 tabs. Did I take on too much?)
 4) First React update error due to component unmount issue resolved
+
+

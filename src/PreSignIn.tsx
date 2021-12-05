@@ -49,16 +49,7 @@ export const PreSignIn = (props: PreSignInProps) => {
       axios.post(`http://localhost:3000/SignUp`,  { name: username })
       .then((res)=>{
         console.log(res);
-        //if (res.data.rows.length > 0) {
-          //props.login(true);
-          //props.setMyName(username);
-          //var list = res.data.rows[0].watchlist===null?[]:res.data.rows[0].watchlist.split(',');
-          //props.setWatchList(list);
           props.handleClose();
-        //} else {
-          //throw 'Cannot Find User';
-        //}
-
       }).catch((err)=>{
         console.log(err);
       });

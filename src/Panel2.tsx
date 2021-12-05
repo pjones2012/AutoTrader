@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { CryptoInfoCard }from './cryptoInfoCard';
 import { Card, Grid, Button } from '@mui/material';
 
 interface Panel2Props {
@@ -16,7 +17,6 @@ export const Panel2 = (props: Panel2Props) => {
     setSelected(newValue);
   };
   const handleRemove = (removeValue: number, event: React.SyntheticEvent) => {
-    event.preventDefault();
     var newList = props.watchList.slice();
     newList.splice(removeValue,1);
 
@@ -29,17 +29,6 @@ export const Panel2 = (props: Panel2Props) => {
   };
 
   React.useEffect(()=>{
-    //axios('https://api.coinbase.com/v2/currencies')
-    //.then((res)=>{
-      //console.log(res.data);
-    //}).catch((err)=>{
-      //console.log(err);
-    //});
-
-
-  }, [1])
-
-  React.useEffect(()=>{
     axios(`https://api.exchange.coinbase.com/products/${props.watchList[selected]}-USD/stats`)
     .then((res)=>{
       console.log(res.data);
@@ -50,7 +39,6 @@ export const Panel2 = (props: Panel2Props) => {
 
   return (
     <React.Fragment>
-      <div> This should be a page about The currencies that are on the account holders watch list. There should be updates from the last visit</div>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid item xs={6}>
           <h3 align="center" >Watch List</h3>
@@ -60,16 +48,19 @@ export const Panel2 = (props: Panel2Props) => {
         </Grid>
         <Grid item xs={6}>
         <h3 align="center">Recent Updates</h3>
-          <Card>Updated information about {props.watchList[selected]}
-            <Button color="inherit" onClick={(e)=>handleRemove(selected,e)}>Remove</Button>
-          </Card>
+        <CryptoInfoCard
+                currency={props.watchList[selected]}
+                handleButton={(e)=>handleRemove(selected,e)}
+                buttonName="Remove"
+                price={0}
+                open={0}
+                />
         </Grid>
         <Grid item xs={12}>
-          <Card>Most increase in 24H </Card>
-          <Card>Most increase in 1W</Card>
-          <Card>Newest</Card>
-          <Card>Announcements</Card>
-          <Card>Buy Low! </Card>
+          <Card>Biggest Winner </Card>
+          <Card>New</Card>
+          <Card>Hot</Card>
+          <Card>Biggest Loser </Card>
         </Grid>
       </Grid>
     </React.Fragment>);
