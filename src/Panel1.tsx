@@ -24,14 +24,14 @@ export const Panel1 = (props: Panel1Props ) => {
   };
 
   const handleNextPage = ()=>{
-    if(index+15<props.cryptoList.length){
-      setIndex(index+15);
+    if(index+10<props.cryptoList.length){
+      setIndex(index+10);
     }
   };
 
   const handlePrevPage = ()=>{
-    if(index-15>=0){
-      setIndex(index-15);
+    if(index-10>=0){
+      setIndex(index-10);
     }
   };
 
@@ -46,7 +46,7 @@ export const Panel1 = (props: Panel1Props ) => {
     });
   };
   React.useEffect(() => {
-    Promise.allSettled(props.cryptoList.slice(index,index+15).map((item )=>axios(`https://api.coinbase.com/v2/prices/${item.base_currency}-USD/spot`)))
+    Promise.allSettled(props.cryptoList.slice(index,index+10).map((item )=>axios(`https://api.coinbase.com/v2/prices/${item.base_currency}-USD/spot`)))
     .then((res)=>{
       var list: any[] = [];
       res.forEach((item)=>{
@@ -60,7 +60,7 @@ export const Panel1 = (props: Panel1Props ) => {
   }, [index])
 
   React.useEffect(() => {
-    Promise.allSettled(props.cryptoList.slice(index,index+15).map((item )=>axios(`https://api.exchange.coinbase.com/products/${item.base_currency}-USD/stats
+    Promise.allSettled(props.cryptoList.slice(index,index+10).map((item )=>axios(`https://api.exchange.coinbase.com/products/${item.base_currency}-USD/stats
 `)))
     .then((res)=>{
       //console.log('open', res);
@@ -79,7 +79,7 @@ export const Panel1 = (props: Panel1Props ) => {
   <React.Fragment >
     <Grid container rowSpacing={4} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
       <Grid item xs={12}>
-        {props.cryptoList.slice(index,index+15||props.cryptoList.length).map((item, i)=>{
+        {props.cryptoList.slice(index,index+10||props.cryptoList.length).map((item, i)=>{
             return (
               <CryptoInfoCard
                 key={i}
