@@ -42,7 +42,7 @@ var findOne = (name, cb)=>{
 
 var createOne=( name, cb)=>{
   console.log(name);
-  client.query(`INSERT INTO users (name) VALUES ($1)`, [name],(err, res) => {
+  client.query(`INSERT INTO users (name, watchlist) VALUES ($1, $2)`, [name, ''],(err, res) => {
     if (res){
       return cb(null,res);
     } else if (err){
