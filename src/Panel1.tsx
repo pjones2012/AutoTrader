@@ -57,7 +57,7 @@ export const Panel1 = (props: Panel1Props ) => {
       console.log('help', err);
     });
     return;
-  }, [props.cryptoList])
+  }, [index])
 
   React.useEffect(() => {
     Promise.allSettled(props.cryptoList.slice(index,index+15).map((item )=>axios(`https://api.exchange.coinbase.com/products/${item.base_currency}-USD/stats
@@ -73,7 +73,7 @@ export const Panel1 = (props: Panel1Props ) => {
       console.log('help', err);
     });
     return;
-  }, [props.cryptoList])
+  }, [index])
 
   return (
   <React.Fragment >
