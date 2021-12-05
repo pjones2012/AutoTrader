@@ -4,7 +4,7 @@ const client = new Client({
   user: 'postgres',
   host: '',
   database: 'investcrypto',
-  password: '',
+  password: 'password',
   port: 5432,
 })
 client.connect(err => {
