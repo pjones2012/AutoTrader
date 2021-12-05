@@ -36,8 +36,7 @@ export const Panel1 = (props: Panel1Props ) => {
     }
   };
 
-  const handleAdd = (newValue: string, event: React.SyntheticEvent) => {
-    event.preventDefault();
+  const handleAdd = (newValue: string) => {
     var newList = props.watchList.slice();
     newList.push(newValue);
     axios.post(`/watchItem`, { list: newList.join(','), name: props.myName })
