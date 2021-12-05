@@ -40,7 +40,7 @@ export const Panel1 = (props: Panel1Props ) => {
     event.preventDefault();
     var newList = props.watchList.slice();
     newList.push(newValue);
-    axios.post(`http://localhost:3000/watchItem`, { list: newList.join(','), name: props.myName })
+    axios.post(`/watchItem`, { list: newList.join(','), name: props.myName })
     .then((res)=>{
       props.setWatchList(newList);
     }).catch((err)=>{

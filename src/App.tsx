@@ -18,7 +18,7 @@ export const App = () => {
     LogIn(!signedIn);
   };
   const handleDelete = () => {
-    axios.post(`http://localhost:3000/Delete`,  { name: myName })
+    axios.post(`Delete`,  { name: myName })
     .then((res)=>{
       console.log(res);
       LogIn(!signedIn);

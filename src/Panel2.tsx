@@ -20,7 +20,7 @@ export const Panel2 = (props: Panel2Props) => {
     var newList = props.watchList.slice();
     newList.splice(removeValue,1);
 
-    axios.post(`http://localhost:3000/watchItem`, { list: newList.join(','), name: props.myName })
+    axios.post(`/watchItem`, { list: newList.join(','), name: props.myName })
     .then((res)=>{
       props.setWatchList(newList);
     }).catch((err)=>{

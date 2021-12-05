@@ -25,7 +25,7 @@ interface PreSignInProps {
 export const PreSignIn = (props: PreSignInProps) => {
   const handleSubmit = ( username: string) => {
     if(username !== ''){
-      axios(`http://localhost:3000/Login`, { params: { name: username } })
+      axios(`/Login`, { params: { name: username } })
       .then((res)=>{
         console.log(res);
         if (res.data.rows.length > 0) {
