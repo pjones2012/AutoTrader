@@ -87,7 +87,7 @@ export const Panel1 = (props: Panel1Props ) => {
                 key={i}
                 currency={item.base_currency}
                 handleCardClick={(e)=>handleCardClick(item.base_currency,e)}
-                handleButton={handleAdd}
+                handleButton={()=>handleAdd(item.base_currency)}
                 buttonName="Add to WatchList"
                 price={(cryptoPriceList[i]||cryptoPriceList[0]).status === "fulfilled"? (cryptoPriceList[i]||cryptoPriceList[0]).value.data.data.amount:0}
                 open={(cryptoOpeningList[i]||cryptoOpeningList[0]).status === "fulfilled"? (cryptoOpeningList[i]||cryptoOpeningList[0]).value.data.open:0}

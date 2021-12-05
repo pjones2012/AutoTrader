@@ -30,8 +30,10 @@ var findOne = (name, cb)=>{
   console.log(list);
   client.query(`UPDATE users SET watchlist=$1 WHERE name=$2`, [list, name],(err, res) => {
     if (res){
+      console.log('good')
       return cb(null,res);
     } else if (err){
+      console.log('cant update')
       return cb(err, null);
     }
 
