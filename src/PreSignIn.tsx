@@ -44,9 +44,9 @@ export const PreSignIn = (props: PreSignInProps) => {
     }
   }
   const handleSignUp = ( username: string) => {
-    console.log('is this you?',username);
+    //console.log('is this you?',username);
     if(username !== ''){
-      axios.post(`http://localhost:3000/SignUp`,  { name: username })
+      axios.post(`/SignUp`,  { name: username })
       .then((res)=>{
         console.log(res);
           props.handleClose();
@@ -57,7 +57,7 @@ export const PreSignIn = (props: PreSignInProps) => {
   }
   return (
   <div style={{margin:"30px"}} align="center" >
-    <div > <img src="./Opener.jpeg" alt="Cryptocurrency Image"  width="50%" height="25%" ></img></div>
+    <div > <img src="../server/Opener.jpeg" alt="Cryptocurrency Image"  width="50%" height="25%" ></img></div>
     <h3 >Sign in to explore the Crypto World!</h3>
     <Modal
         open={props.modalState}
