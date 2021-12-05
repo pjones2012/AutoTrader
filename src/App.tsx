@@ -17,6 +17,15 @@ export const App = () => {
     event.preventDefault();
     LogIn(!signedIn);
   };
+  const handleDelete = () => {
+    axios.post(`http://localhost:3000/Delete`,  { name: myName })
+    .then((res)=>{
+      console.log(res);
+      LogIn(!signedIn);
+    }).catch((err)=>{
+      console.log(err);
+    });
+  };
   return (
   <React.Fragment >
     <AppBar position="static">
@@ -24,6 +33,7 @@ export const App = () => {
         <Typography variant="h6" component="h1"  sx={{ flexGrow: 1 }}>
           CryptoClass
         </Typography>
+        {signedIn && <Button color="inherit" onClick={handleDelete}>Delete Account</Button>}
         <Button color="inherit" onClick={signedIn?handleLogIn:handleOpen}>{signedIn?"Log off":"Log In"}</Button>
       </Toolbar>
     </AppBar>

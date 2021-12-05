@@ -39,7 +39,7 @@ app.post('/SignUp', function (req, res) {
 });
 
 app.post('/watchItem', function (req, res) {
-  console.log(req.body.list);
+  //console.log(req.body.list);
   db.updateWatchList(req.body.list,req.body.name, (err, result)=>{
     if(err){
       //console.log(err);
@@ -48,6 +48,19 @@ app.post('/watchItem', function (req, res) {
     } else {
       res.status(201);
       res.send(req.body.list);
+    }
+  })
+});
+
+app.post('/Delete', function (req , res) {
+ // console.log(req.body.list);
+  db.deleteOne(req.body.name, (err, result)=>{
+    if(err){
+      //console.log(err);
+      res.status(404);
+      res.send(err);
+    } else {
+      res.sendStatus(201);
     }
   })
 });

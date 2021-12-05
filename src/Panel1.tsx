@@ -1,10 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import { Card, Grid, Button } from '@mui/material';
+import { Card, Grid, Button, Typography} from '@mui/material';
 
 interface Panel1Props {
   children?: React.ReactNode;
-  cryptoList: string[];
+  cryptoList: {base_currency: string}[];
   watchList: string[];
   setWatchList: any;
   changePanel: any;
@@ -13,29 +13,29 @@ interface Panel1Props {
 }
 
 export const Panel1 = (props: Panel1Props ) => {
-  const [cryptoPriceList, setCryptoPriceList] = React.useState([{status:"BTC", value: 0}]);
+  const [cryptoPriceList, setCryptoPriceList] = React.useState([{status:"BTC", value: {data: {data: {amount: 0}}}}]);
+  const [cryptoOpeningList, setCryptoOpeningList] = React.useState([{status:"BTC", value: {data: {open: 0}}}]);
   const [index, setIndex] = React.useState(0);
 
   const handleCardClick = (crypto: string, event: React.SyntheticEvent) => {
     event.preventDefault();
     props.changePanel(2);
     props.changeCryptoDetail(crypto);
-    console.log('look at ' + crypto);
   };
+
   const handleNextPage = ()=>{
-    if(index+25<props.cryptoList.length){
-      setIndex(index+25);
+    if(index+15<props.cryptoList.length){
+      setIndex(index+15);
     }
-
   };
+
   const handlePrevPage = ()=>{
-    if(index-25>=0){
-      setIndex(index-25);
+    if(index-15>=0){
+      setIndex(index-15);
     }
-
   };
 
-  const handleAdd = (newValue: number, event: React.SyntheticEvent) => {
+  const handleAdd = (newValue: string, event: React.SyntheticEvent) => {
     event.preventDefault();
     var newList = props.watchList.slice();
     newList.push(newValue);
@@ -46,10 +46,9 @@ export const Panel1 = (props: Panel1Props ) => {
       console.log(err);
     });
   };
-  React.useEffect(()=>{
-    Promise.allSettled(props.cryptoList.slice(index,index+25).map((item )=>axios(`https://api.coinbase.com/v2/prices/${item.base_currency}-USD/spot`)))
+  React.useEffect(() => {
+    Promise.allSettled(props.cryptoList.slice(index,index+15).map((item )=>axios(`https://api.coinbase.com/v2/prices/${item.base_currency}-USD/spot`)))
     .then((res)=>{
-      console.log('wtheck man', res);
       var list: any[] = [];
       res.forEach((item)=>{
         list.push(item);
@@ -58,26 +57,46 @@ export const Panel1 = (props: Panel1Props ) => {
     }).catch((err)=>{
       console.log('help', err);
     });
-    return function cleanup() {}; //Did this return statment actually help?
+    return;
+  }, [props.cryptoList])
+
+  React.useEffect(() => {
+    Promise.allSettled(props.cryptoList.slice(index,index+15).map((item )=>axios(`https://api.exchange.coinbase.com/products/${item.base_currency}-USD/stats
+`)))
+    .then((res)=>{
+      //console.log('open', res);
+      var openList: any[] = [];
+      res.forEach((item)=>{
+        openList.push(item);
+      })
+      setCryptoOpeningList(openList);
+    }).catch((err)=>{
+      console.log('help', err);
+    });
+    return;
   }, [props.cryptoList])
 
   return (
   <React.Fragment >
-    <div> A page exploring cryptos. </div>
-    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+    <Grid container rowSpacing={4} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
       <Grid item xs={12}>
-        {props.cryptoList.slice(index,index+25||props.cryptoList.length).map((item, i)=>{
+        {props.cryptoList.slice(index,index+15||props.cryptoList.length).map((item, i)=>{
             return (
             <Card key={i} >
-              <span onClick={(e)=>handleCardClick(item.base_currency,e)}> {/*props.cryptoList[i].base_currency_name*/} {item.base_currency} {(cryptoPriceList[i]||cryptoPriceList[0]).status === "fulfilled"? (cryptoPriceList[i]||cryptoPriceList[0]).value.data.data.amount:null}, price change price chart market cap ,</span>
+              <span onClick={(e)=>handleCardClick(item.base_currency,e)}>
+                Ticker: {item.base_currency} <br></br>
+                Price: {(cryptoPriceList[i]||cryptoPriceList[0]).status === "fulfilled"? (cryptoPriceList[i]||cryptoPriceList[0]).value.data.data.amount:null} <br></br>
+                Change %: {(cryptoOpeningList[i]||cryptoOpeningList[0]).status === "fulfilled"? ((cryptoPriceList[i]||cryptoPriceList[0]).value.data.data.amount/(cryptoOpeningList[i]||cryptoOpeningList[0]).value.data.open -1).toFixed(2):null}
+
+              </span>
               <Button color="inherit" onClick={(e)=>handleAdd(item.base_currency,e)}>Add to WatchList</Button>
 
 
             </Card>)
           })}
       </Grid>
-      <Button color="inherit" onClick={(e)=>handlePrevPage(e)}>Prev</Button>
-      <Button color="inherit" onClick={(e)=>handleNextPage(e)}>Next</Button>
+      <Button color="inherit" onClick={handlePrevPage}>Prev</Button>
+      <Button color="inherit" onClick={handleNextPage}>Next</Button>
     </Grid>
   </React.Fragment>);
 }

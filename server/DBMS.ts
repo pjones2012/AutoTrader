@@ -9,7 +9,7 @@ const client = new Client({
 })
 client.connect();
 
-var findOne =(name, cb)=>{
+var findOne = (name, cb)=>{
   //console.log(name);
   client.query(`SELECT * from users where name=$1`, [name],(err, res) => {
     if (res){
@@ -43,9 +43,21 @@ var createOne=( name, cb)=>{
 
   })
 }
+var deleteOne=( name, cb)=>{
+  console.log(name);
+  client.query(`DELETE FROM users WHERE name=$1;`, [name],(err, res) => {
+    if (res){
+      return cb(null,res);
+    } else if (err){
+      return cb(err, null);
+    }
+
+  })
+}
 
 module.exports={
   findOne,
   updateWatchList,
   createOne,
+  deleteOne,
 }

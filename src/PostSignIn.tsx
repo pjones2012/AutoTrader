@@ -5,10 +5,17 @@ import { Panel1 }  from './Panel1';
 import { Panel2 } from './Panel2';
 import { Panel3 } from './Panel3';
 
-export const PostSignIn = (props) => {
+interface PostSignInProps {
+  children?: React.ReactNode;
+  myName: string;
+  watchList: string[];
+  setWatchList: any;
+}
+
+export const PostSignIn = (props: PostSignInProps) => {
   const [cryptoList, setCryptoList] = React.useState([{base_currency: "BTC"}]);
   const [cryptoDetail, setCryptoDetail] = React.useState("BTC");
-  const [value, setValue] = React.useState(2);
+  const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     event.preventDefault();

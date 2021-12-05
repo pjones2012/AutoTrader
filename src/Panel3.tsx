@@ -9,7 +9,6 @@ import { Chart as ChartJS,
   Legend,} from 'chart.js';
 import { Line }  from 'react-chartjs-2';
 import axios from 'axios';
-import { Card, Grid, Button } from '@mui/material';
 
 interface Panel3Props {
   children?: React.ReactNode;
@@ -27,9 +26,6 @@ ChartJS.register(
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 export const Panel3 = (props: Panel3Props) => {
-
-
-
   const options = {
     responsive: true,
     plugins: {
@@ -38,33 +34,26 @@ export const Panel3 = (props: Panel3Props) => {
       },
       title: {
         display: true,
-        text: `${props.current}`, //Add coinName here
+        text: `${props.current}`,
       },
     },
   };
-  //const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']; //labels might need to be dynamic based on how long coin has been out or time frame
 
   const [data, setData] = React.useState( {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'] ,
+    labels: [] ,
     datasets: [
       {
         label: 'Dataset 1',//Add coin information here
-        data: [1,2,3,4,5,6,7,8,9,10],
+        data: [],
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
-      //{
-        //label: 'Dataset 2',
-        //data: labels.map(() => datatype.number({ min: -1000, max: 1000 })),
-        //borderColor: 'rgb(53, 162, 235)',
-        //backgroundColor: 'rgba(53, 162, 235, 0.5)',
-      //},
     ],
   });
 
   React.useEffect(()=>{
     var rightNow = Math.floor(Date.now()/1000);
-    console.log('end =', rightNow); // 1638649032.056
+    //console.log('end =', rightNow); // 1638649032.056
                                         //1638576000
                                         //25833600
     /*Promise.allSettled([axios(`https://api.exchange.coinbase.com/products/${props.current}-USD/candles`, {
@@ -82,9 +71,9 @@ export const Panel3 = (props: Panel3Props) => {
       }
     })//])
     .then((res)=>{
-      console.log(res);
+      //console.log(res);
       setData({
-        labels: res.data.reverse().map((item)=>{
+        labels: res.data.reverse().map((item: number[])=>{
           var d = new Date(0);
           d.setUTCSeconds(item[0]);
           return months[d.getMonth()]+ d.getDate() + ', ' + d.getFullYear();
@@ -92,7 +81,7 @@ export const Panel3 = (props: Panel3Props) => {
         datasets: [
         {
           label: `${props.current} closing price`,
-          data: res.data.reverse().map((item)=>{return item[4];}),
+          data: res.data.reverse().map((item: number[])=>{return item[4];}),
           borderColor: 'rgb(255, 99, 132)',
           backgroundColor: 'rgba(255, 99, 132, 0.5)',
         }
