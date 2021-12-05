@@ -5,7 +5,7 @@ const client = new Client({
   host: '',
   database: 'investcrypto',
   password: 'password',
-  port: 5433,
+  port: 5432,
 })
 client.connect();
 
