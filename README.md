@@ -1,9 +1,11 @@
 # Crypto Class
+
  Hello Welcome to my application CryptoClass. This is an Crypto investing platform user can come to to get updates on the latest crypto pricing using the "Explore Crypto" tab, keep track of a watch list for their favorite crypto currency on the "Your Watchlist" tab and Dive deeper into crypto currency patterns and information on the "Investigate" tab. This application is made for American users in that all crypto currency values are displayed in USD$.
 
 This application uses Coinbases API for all currency information and uses PostgresSql to store user specific information
 
-
+# Deployed URL
+http://3.138.35.7/
 # Prerequisites -
 Before you continue, ensure you have met the following requirements. *You have installed the latest version of Node *You have installed the latest version of JavaScript
 
